@@ -1,0 +1,563 @@
+/* --- THEME ROOT CONFIGURATIONS ENGINE --- */
+
+[data-theme="dark"] {
+    --bg-dark: #0f172a;
+    --card-bg: #1e293b;
+    --panel-bg: rgba(30, 41, 59, 0.5);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --input-bg: rgba(15, 23, 42, 0.7);
+    --border-color: rgba(255, 255, 255, 0.05);
+    --accent-blue: #00f2fe;
+    --accent-purple: #9333ea;
+    --btn-glow: rgba(0, 242, 254, 0.45);
+}
+
+[data-theme="light"] {
+    --bg-dark: #f1f5f9;
+    --card-bg: #ffffff;
+    --panel-bg: rgba(255, 255, 255, 0.8);
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --input-bg: #f8fafc;
+    --border-color: rgba(0, 0, 0, 0.08);
+    --accent-blue: #0284c7;
+    --accent-purple: #7c3aed;
+    --btn-glow: rgba(2, 132, 199, 0.3);
+}
+
+:root {
+    --tier-red: #ef4444;
+    --tier-orange: #f97316;
+    --tier-yellow: #eab308;
+    --tier-green: #22c55e;
+    --dynamic-tier-color: var(--tier-red);
+    --tier-glow: rgba(239, 68, 68, 0.2);
+}
+
+* {
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+
+/* Master Grid Wrapper: Responsive Layout Matrix */
+
+.app-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 880px;
+}
+
+@media (min-width: 768px) {
+    .app-layout {
+        grid-template-columns: 1.2fr 1fr;
+    }
+}
+
+.vault-container,
+.telemetry-panel {
+    background-color: var(--card-bg);
+    padding: 1.8rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.cyber-pulse-active {
+    animation: dynamicPulse 2s infinite ease-in-out;
+}
+
+
+/* Header Layout Formatting */
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.logo:hover {
+    animation: textGlitch 0.3s linear infinite;
+    cursor: pointer;
+}
+
+.theme-toggle-btn {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+header p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin: 6px 0 0 0;
+}
+
+
+/* Main Output Field Container */
+
+.display-section {
+    position: relative;
+    display: flex;
+    background-color: var(--input-bg);
+    border-radius: 8px;
+    padding: 10px 14px;
+    align-items: center;
+    margin: 1.5rem 0 1.2rem 0;
+    border: 1px solid var(--border-color);
+    height: 54px;
+}
+
+.display-section input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.3rem;
+    font-weight: bold;
+    outline: none;
+}
+
+.action-buttons-wrapper {
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+}
+
+.action-buttons-wrapper button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+
+
+/* Cloud Drop Zone Component Setup */
+
+.cloud-zone {
+    position: absolute;
+    top: -25px;
+    left: 14px;
+    right: 75px;
+    display: flex;
+    pointer-events: none;
+    height: 30px;
+}
+
+.falling-letter {
+    flex: 1;
+    text-align: left;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: var(--accent-blue);
+    transform: translateY(-15px);
+    opacity: 0;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.15s;
+}
+
+.falling-letter.landed {
+    transform: translateY(35px);
+    opacity: 1;
+    color: var(--text-main);
+}
+
+
+/* Form Selection Components Layout */
+
+.control-group {
+    margin-bottom: 1.2rem;
+}
+
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+#length-slider {
+    width: 100%;
+    accent-color: var(--accent-blue);
+    cursor: pointer;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 440px) {
+    .checkbox-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.custom-checkbox {
+    background: var(--input-bg);
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    border: 1px solid transparent;
+}
+
+.custom-checkbox:hover {
+    border-color: var(--accent-blue);
+}
+
+.custom-checkbox input {
+    accent-color: var(--accent-blue);
+    width: 16px;
+    height: 16px;
+}
+
+
+/* Color-Coded Security Score Box */
+
+.rpg-score-card {
+    background: var(--input-bg);
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--dynamic-tier-color);
+    transition: border-color 0.4s ease;
+}
+
+.score-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.tier-badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: var(--dynamic-tier-color);
+    color: #fff;
+}
+
+.progress-bar-container {
+    background-color: rgba(148, 163, 184, 0.2);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background-color: var(--dynamic-tier-color);
+    transition: width 0.15s linear, background-color 0.4s ease;
+}
+
+.boss-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+
+/* --- ⚡ RECONFIGURED PRIMARY CORE ACTION BUTTON ⚡ --- */
+
+
+/* --- ⚡ THE ULTIMATE CORE ACTION BUTTON REPAIR ⚡ --- */
+
+
+/* --- ⚡ ALTERNATIVE FOOLPROOF HOVER EFFECT ⚡ --- */
+
+.primary-btn {
+    display: block !important;
+    width: 100% !important;
+    padding: 15px !important;
+    font-size: 1rem !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    border: none !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    overflow: hidden !important;
+    /* A solid, reliable static gradient background */
+    background: linear-gradient(90deg, #00f2fe, #9333ea) !important;
+    /* Smooth transition for scale shifts */
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease, filter 0.1s ease !important;
+}
+
+
+/* 1. Sleek Hidden Bottom Border Line Component Setup */
+
+
+/* --- ⚡ CYBERPUNK DISTORTION GLITCH CLICK EFFECT ⚡ --- */
+
+.primary-btn {
+    display: block !important;
+    width: 100% !important;
+    padding: 15px !important;
+    font-size: 1rem !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    border: none !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    /* Solid, clean gradient base matching your theme layout */
+    background: linear-gradient(90deg, #00f2fe, #9333ea) !important;
+    /* Smooth transition for hover states */
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease, filter 0.2s ease !important;
+}
+
+
+/* Hover: Elevated focus state with an ambient glowing backdrop shadow */
+
+.primary-btn:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0 8px 25px rgba(0, 242, 254, 0.45) !important;
+    filter: brightness(1.1) !important;
+}
+
+
+/* Active Click: Instant Cyberpunk Text Split & Grid Skew Distortion */
+
+.primary-btn:active {
+    transform: translateY(1px) scale(0.97) !important;
+    /* Overload color flash and contrast spike */
+    filter: brightness(1.4) contrast(1.3) hue-rotate(45deg) !important;
+    /* Spreads text into two separate pixel layers (Neon Cyan and Purple) */
+    text-shadow: 3px 2px #00f2fe, -3px -2px #9333ea !important;
+    /* Adds a minor horizontal slant to simulate a matrix display glitch */
+    transform: skewX(-6deg) scale(0.97) !important;
+    letter-spacing: 1.5px !important;
+}
+
+
+/* Disabled State Lock during active cloud cascade drops */
+
+.primary-btn:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+
+/* 3. HARDCODED POSITION KEYFRAME MOVEMENT */
+
+@keyframes permanentGradientMove {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+
+/* --- TELEMETRY SIDEBAR ENGINE --- */
+
+.telemetry-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.panel-section h3 {
+    margin: 0 0 14px 0;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    padding: 6px 0;
+}
+
+.metric-row strong {
+    color: var(--accent-blue);
+}
+
+
+/* --- HISTORIC ITEMS TRACKING ROWS --- */
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 240px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.history-item {
+    background-color: var(--input-bg);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--border-color);
+}
+
+.history-item span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 70%;
+    letter-spacing: 0.5px;
+}
+
+.history-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.history-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.05rem;
+    padding: 2px;
+    opacity: 0.6;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+.history-actions button:hover {
+    opacity: 1;
+}
+
+.history-actions button:active {
+    transform: scale(0.85);
+}
+
+.empty-history-msg {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 20px 0;
+}
+
+
+/* Toast Notifications Wrapper */
+
+.achievement-toast {
+    position: fixed;
+    top: 20px;
+    right: -360px;
+    background: var(--card-bg);
+    border: 2px solid var(--accent-blue);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 9999;
+}
+
+.achievement-toast.active {
+    right: 20px;
+}
+
+.achievement-text h4 {
+    margin: 0;
+    color: var(--accent-blue);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.achievement-text p {
+    margin: 2px 0 0 0;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--text-main);
+}
+
+
+/* Glitch Title Animation Matrix */
+
+@keyframes textGlitch {
+    0%,
+    100% {
+        text-shadow: 2px -2px var(--accent-blue), -2px 2px var(--accent-purple);
+    }
+    50% {
+        text-shadow: -2px 2px var(--accent-blue), 2px -2px var(--accent-purple);
+    }
+}
+
+@keyframes dynamicPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.05), 0 0 5px var(--tier-glow);
+    }
+    50% {
+        box-shadow: 0 0 24px rgba(0, 0, 0, 0.12), 0 0 18px var(--tier-glow);
+    }
+}
+
+@keyframes physicalShake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-6px);
+    }
+    75% {
+        transform: translateX(6px);
+    }
+}
+
+.shake-triggered {
+    animation: physicalShake 0.4s ease-in-out;
+}

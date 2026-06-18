@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberVault Pro - Advanced Security Toolkit</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+
+    <div class="app-layout">
+        <div class="vault-container" id="main-vault">
+            <header>
+                <div class="header-top">
+                    <div class="logo">🔒 CyberVault</div>
+                    <button id="theme-toggle" class="theme-toggle-btn" title="Toggle UI Theme">☀️ Mode</button>
+                </div>
+                <p>Generate highly secure passwords instantly</p>
+            </header>
+
+            <div class="display-section">
+                <div id="cloud-drop-zone" class="cloud-zone"></div>
+                <input type="password" id="password-display" readonly placeholder="Click Generate...">
+                <div class="action-buttons-wrapper">
+                    <button id="toggle-visibility-btn" title="Toggle Visibility">👁️</button>
+                    <button id="copy-btn" title="Copy to Clipboard">📋</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="slider-header">
+                    <span>Password Length: <strong id="length-val">12</strong></span>
+                </div>
+                <input type="range" id="length-slider" min="6" max="32" value="12">
+            </div>
+
+            <div class="checkbox-grid">
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="chk-uppercase" checked>
+                    <span>Uppercase</span>
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="chk-lowercase" checked>
+                    <span>Lowercase</span>
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="chk-numbers" checked>
+                    <span>Numbers</span>
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="chk-symbols" checked>
+                    <span>Symbols</span>
+                </label>
+            </div>
+
+            <div class="rpg-score-card" id="rpg-card">
+                <div class="score-meta">
+                    <span>Security Score: <strong id="score-num">0</strong>/100</span>
+                    <span id="boss-tier" class="tier-badge">Fragile Slime</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <p id="boss-desc" class="boss-desc">Configure matrix to analyze footprint.</p>
+            </div>
+
+            <button id="generate-btn" class="primary-btn">⚡ Generate Password</button>
+        </div>
+
+        <div class="telemetry-panel">
+            <div class="panel-section">
+                <h3>📊 Cryptographic Analysis</h3>
+                <div class="metric-row">
+                    <span>Entropy Level:</span>
+                    <strong id="entropy-display">0 bits</strong>
+                </div>
+                <div class="metric-row">
+                    <span>Estimated Crack Time:</span>
+                    <strong id="crack-time-display">Instantaneous</strong>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3>⏳ Session Vault History</h3>
+                <div class="history-list" id="history-container">
+                    <p class="empty-history-msg">No active historic generations recorded.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="achievement-toast" class="achievement-toast">
+        <div class="achievement-icon" id="toast-icon">🏆</div>
+        <div class="achievement-text">
+            <h4 id="toast-title">ACHIEVEMENT UNLOCKED</h4>
+            <p id="toast-desc-text">Paranoid Android</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
